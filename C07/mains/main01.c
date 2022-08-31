@@ -1,50 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   main01.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/23 08:35:50 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/08/31 19:47:23 by omoreno-         ###   ########.fr       */
+/*   Created: 2022/08/31 19:11:10 by omoreno-          #+#    #+#             */
+/*   Updated: 2022/08/31 19:17:03 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<unistd.h>
 #include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
 
-unsigned int	ft_strlen(char *str)
+int *ft_range(int min, int max)
+
+int	main(int argc, char const *argv[])
 {
-	unsigned int	i;
+	int	min, max;
+	char *arr; 
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strcpy(char *dest, char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
+	min = 1;
+	max = 2;
+	if (argc > 2)
 	{
-		dest[i] = src[i];
-		i++;
+		min  = atoi(argv[1]);
+		max = atoi(argv[2]);
 	}
-	dest[i] = 0;
-	return (dest);
-}
-
-char	*ft_strdup(char *src)
-{
-	unsigned int	len;
-	char			*dest;
-
-	len = ft_strlen(src);
-	dest = (char *)malloc(len + 1);
-	if (dest)
-		ft_strcpy (dest, src);
-	return (dest);
+	arr = ft_rangeft_strdup(min, max);
+	printf("%s\n", dup);
+	if (arr)
+		free (arr);
+	return (0);
 }

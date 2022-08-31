@@ -1,49 +1,86 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_convert_base2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 19:19:43 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/08/14 18:21:50 by omoreno-         ###   ########.fr       */
+/*   Created: 2022/08/31 20:11:14 by omoreno-          #+#    #+#             */
+/*   Updated: 2022/08/31 20:29:16 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include<unistd.h>
 
-int ft_isspace(char c)
+unsigned int	ft_strlen(char *str)
 {
-    int ret;
+	unsigned int	i;
 
-    ret = (c == ' ' || c == '\n' || c == '\t');
-    ret = ret || (c == '\v' || c == '\f' || c == '\r');
-
-    return (ret);
+	i = 0;
+	while (base[i])
+		i++;
+	return (i);
 }
 
-int ft_is_this_base(char c, char *base, int *digit_value, unsigned int base_n)
+int	ft_is_this_base(char c, char *base, int *digit_value, unsigned int base_n)
 {
-    int             ret;
-    unsigned int    i;
-    int             found;
+	unsigned int	i;
+	int				found;
 
-    i = 0;
-    found = 0;
-    while (i < base_n && ! found)
-    {
-        if (base[i] == c)
-            found = 1;
-        else
-            i++;
-    }
-    if (found)
-    {
-        *digit_value = i;
-        return (1);
-    }
-    *digit_value = 0;
-    return (0);
+	i = 0;
+	found = 0;
+	while (i < base_n && ! found)
+	{
+		if (base[i] == c)
+			found = 1;
+		else
+			i++;
+	}
+	if (found)
+	{
+		*digit_value = i;
+		return (1);
+	}
+	*digit_value = 0;
+	return (0);
+}
+
+int	ft_take_signs(char **p)
+{
+	int	minus_counter;
+
+	minus_counter = 0;
+	while (**p == '+' || **p == '-')
+	{
+		if (**p == '-')
+			minus_counter++;
+		(*p)++;
+	}
+	if (minus_counter % 2)
+		return (-1);
+	return (1);
+}
+
+int	ft_atoi_m(char *str, char *base, unsigned int base_n)
+{
+	int		ret;
+	int		s;
+	char	*p;
+	int		digit_value;
+
+	p = str;
+	ret = 0;
+	while (*p && (*p) <= ' ')
+		p++;
+	s = ft_take_signs(&p);
+	while (ft_is_this_base(*p, base, &digit_value, base_n))
+	{
+		ret *= base_n;
+			ret += digit_value;
+		p++;
+	}
+	ret *= s;
+	return (ret);
 }
 
 char	ft_get_last_digit(long int *n, int base)
@@ -54,86 +91,3 @@ char	ft_get_last_digit(long int *n, int base)
 	*n = *n / base;
 	return (ls);
 }
-
-void	ft_putposnbr(long int nb, char *base_code, int base)
-{
-	int			i;
-	char		store[11];
-	long int	restant_digits;
-	int			s;
-    char    	c;
-
-	restant_digits = nb;
-	i = 0;
-	s = 0;
-	while (restant_digits > 0 || i == 0)
-	{
-		store[i] = ft_get_last_digit(&restant_digits, base);
-		if (restant_digits <= 0)
-			s = i;
-		i++;
-	}
-	i = s;
-	while (i >= 0)
-	{
-        c = base_code[store[i]];
-        write(1, &c, 1);
-		i--;
-	}
-}
-
-void	ft_putnbr(long int nb, char *base_code, int base)
-{
-	char		neg;
-	long int	aux;
-
-	neg = (nb < 0);
-	aux = nb;
-	if (neg)
-	{
-		aux = -aux;
-        write(1, "-", 1);
-	}
-	ft_putposnbr (aux, base_code, base);
-}
-
-int ft_get_base_n(char *base)
-{
-    int     		base_n;
-    unsigned int    i;
-
-    while (base[base_n])
-        base_n++;
-    if (base_n<2)
-        return (0);
-    return (base_n);
-}
-
-void ft_putnbr_base(int nbr, char *base)
-{
-    int     		base_n;
-    unsigned int    i;
-    unsigned int    j;
-
-    base_n = ft_get_base_n(base);
-    while (base[base_n])
-        base_n++;
-    if (base_n<2)
-        return;
-    i = 0;
-    while (i < base_n)
-    {
-        if (base[i]=='+' || base[i]=='-' || ft_isspace(base[i]))
-            return;
-        j = i + 1;
-        while (j < base_n)
-        {
-            if (base[i] == base[j])
-                return;
-            j++;
-        }
-        i++;
-    }
-    ft_putnbr((long int) nbr, base, base_n)
-}
-
