@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:11:10 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/09/01 18:53:13 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/09/01 19:47:55 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include<stdio.h>
 #include<string.h>
 
-int *ft_range(int min, int max);
+int ft_ultimate_range(int **range, int min, int max);
 
 int	main(int argc, char const *argv[])
 {
-	int	min, max, i, size;
+	int	min, max, size, i;
 	int *arr; 
 
 	min = 1;
@@ -28,14 +28,17 @@ int	main(int argc, char const *argv[])
 		min  = atoi(argv[1]);
 		max = atoi(argv[2]);
 	}
-	size = max - min;
-	if (size < 0) return (0);
-	arr = ft_range(min, max);
+	printf("min: %d max:%d\n", min, max);
+	size = ft_ultimate_range(&arr, min, max);
+	printf("size %d\n", size);
 	i = 0;
-	while(i<size)
+	if (size > 0)
 	{
-		printf("%d\n", arr[i]);
-		i++;
+		while (i < size)
+		{
+			printf("%d\n", arr[i]);
+			i++;
+		}
 	}
 	if (arr)
 		free (arr);

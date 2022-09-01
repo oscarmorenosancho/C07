@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main01.c                                           :+:      :+:    :+:   */
+/*   main00.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/31 19:11:10 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/09/01 18:53:13 by omoreno-         ###   ########.fr       */
+/*   Created: 2022/08/31 09:26:26 by omoreno-          #+#    #+#             */
+/*   Updated: 2022/09/01 16:52:23 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,25 @@
 #include<stdio.h>
 #include<string.h>
 
-int *ft_range(int min, int max);
+char    *ft_convert_base(char *nbr, char *base_from, char *base_to);
 
 int	main(int argc, char const *argv[])
 {
-	int	min, max, i, size;
-	int *arr; 
+	char	nbr[32] = "2";
+	char	*conv;
+	char 	base_from[50] = "0123456789";
+	char	base_to[50] = "0123456789";
 
-	min = 1;
-	max = 2;
-	if (argc > 2)
+	if (argc > 3)
 	{
-		min  = atoi(argv[1]);
-		max = atoi(argv[2]);
+		strcpy(nbr, argv[1]);
+		strcpy(base_from, argv[2]);
+		strcpy(base_to, argv[3]);
 	}
-	size = max - min;
-	if (size < 0) return (0);
-	arr = ft_range(min, max);
-	i = 0;
-	while(i<size)
-	{
-		printf("%d\n", arr[i]);
-		i++;
-	}
-	if (arr)
-		free (arr);
+	printf("nbr: %s from: %s to: %s\n", nbr, base_from, base_to);
+	conv = ft_convert_base(nbr, base_from, base_to);
+	printf("converted %s\n", conv);
+	if (conv)
+		free (conv);
 	return (0);
 }

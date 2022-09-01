@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:35:50 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/08/31 19:54:52 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:25:22 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ unsigned int	ft_strcpy_ret_size(char *dest, char *src)
 
 int	ft_measure_total_length(int size, char **strs, int sep_len)
 {
-	unsigned int	total_length;
-	unsigned int	i;
-	unsigned int	len;
+	int	total_length;
+	int	i;
+	int	len;
 
 	i = 0;
 	total_length = 0;
@@ -60,11 +60,10 @@ int	ft_measure_total_length(int size, char **strs, int sep_len)
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	unsigned int	i;
-	unsigned int	len;
-	unsigned int	total_length;
-	char			*dest;
-	char			*next;
+	int		i;
+	int		total_length;
+	char	*dest;
+	char	*next;
 
 	total_length = ft_measure_total_length(size, strs, ft_strlen(sep));
 	dest = (char *)malloc(total_length + 1);

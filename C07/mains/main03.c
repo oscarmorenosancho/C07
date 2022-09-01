@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_range.c                                         :+:      :+:    :+:   */
+/*   main03.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/23 08:35:50 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/09/01 18:54:33 by omoreno-         ###   ########.fr       */
+/*   Created: 2022/09/01 19:50:44 by omoreno-          #+#    #+#             */
+/*   Updated: 2022/09/01 20:22:10 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<unistd.h>
 #include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
 
-int	*ft_range(int min, int max)
+char *ft_strjoin(int size, char **strs, char *sep);
+
+int	main(int argc, char *argv[])
 {
-	int	*arr;
-	int	size;
-	int	i;
+	int	size, i;
+	char *strs[50];
+	char *sep;
+	char *joined;
 
-	if (max > min)
+	size = 0;
+	joined = 0;
+	if (argc > 2)
 	{
-		size = max - min;
-		arr = (int *)malloc(size * sizeof(int));
-		i = min;
-		if (arr)
-		{
-			while (i < max)
-			{
-				arr[i - min] = i;
-				i++;
-			}
-		}
-		return (arr);
+		sep = argv[1];
+		size = argc - 2;
+		for (i = 0;i<size;i++)
+			strs[i] = argv[i + 2];
+		joined = ft_strjoin(size, strs, sep);
+		printf("size %d\n", size);
+		printf("%s\n", joined);
 	}
+	if (joined)
+		free (joined);
 	return (0);
 }

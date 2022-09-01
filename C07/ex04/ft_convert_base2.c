@@ -6,26 +6,26 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 20:11:14 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/08/31 20:29:16 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:48:44 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<unistd.h>
 
-unsigned int	ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (base[i])
+	while (str[i])
 		i++;
 	return (i);
 }
 
-int	ft_is_this_base(char c, char *base, int *digit_value, unsigned int base_n)
+int	ft_is_this_base(char c, char *base, int *digit_value, int base_n)
 {
-	unsigned int	i;
-	int				found;
+	int	i;
+	int	found;
 
 	i = 0;
 	found = 0;
@@ -61,7 +61,7 @@ int	ft_take_signs(char **p)
 	return (1);
 }
 
-int	ft_atoi_m(char *str, char *base, unsigned int base_n)
+int	ft_atoi_m(char *str, char *base, int base_n)
 {
 	int		ret;
 	int		s;
