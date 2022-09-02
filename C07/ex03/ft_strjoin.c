@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 08:35:50 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/09/01 20:25:22 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/09/02 08:54:36 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	dest = (char *)malloc(total_length + 1);
 	i = 0;
 	next = dest;
+	dest[0] = 0;
 	while (i < size)
 	{
 		if (strs[i])

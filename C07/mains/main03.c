@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 19:50:44 by omoreno-          #+#    #+#             */
-/*   Updated: 2022/09/01 20:22:10 by omoreno-         ###   ########.fr       */
+/*   Updated: 2022/09/02 08:51:44 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *ft_strjoin(int size, char **strs, char *sep);
 int	main(int argc, char *argv[])
 {
 	int	size, i;
-	char *strs[50];
+	char *strs[50] = "";
 	char *sep;
 	char *joined;
 
