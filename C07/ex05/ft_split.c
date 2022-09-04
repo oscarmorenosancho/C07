@@ -11,38 +11,27 @@
 /* ************************************************************************** */
 
 #include<stdlib.h>
+#include<stdio.h>
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strncpy(char *dest, const char *src, unsigned int n)
 {
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src[i] && i < n)
 	{
 		dest[i] = src[i];
 		i++;
 	}
-}
-
-unsigned int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	dest[i] = 0;
 }
 
 int	ft_check_is_sep(char c, char *charset)
 {
-	unsigned int	i;
-	unsigned int	len;
-	unsigned int	count;
+	int	i;
 
-	len = ft_strlen(charset);
 	i = 0;
-	while (i < len)
+	while (charset[i])
 	{	
 		if (c == charset[i])
 			return (1);
@@ -51,19 +40,20 @@ int	ft_check_is_sep(char c, char *charset)
 	return (0);
 }
 
-unsigned int ft_get_elements_count(char *str, char *charset, unsigned int len)
+unsigned int ft_get_elements_count(char *str, char *charset)
 {
 	unsigned int	i;
 	unsigned int	count;
 	int				prev_is_sep;
-	int				curr_is_sep:
+	int				curr_is_sep;
 
 	i = 0;
 	count = 0;
 	prev_is_sep = 1;
-	while (i < len);
+	curr_is_sep = 0;
+	while (str[i])
 	{
-		actual_is_sep = ft_check_is_sep(str[i], charset);
+		curr_is_sep = ft_check_is_sep(str[i], charset);
 		if (! curr_is_sep && prev_is_sep)
 			count++;
 		i++;
@@ -72,32 +62,58 @@ unsigned int ft_get_elements_count(char *str, char *charset, unsigned int len)
 	return (count);
 }
 
+char *ft_find_next_word(char *str, char *charset, char **p)
+{
+	char			*word;
+	char			*word_start;
+	char			*word_end;
+	unsigned int	size;
+
+	word_start = *p;
+	word_end = *p;
+	while (*word_start && ft_check_is_sep(*word_start, charset))
+		word_start++;
+	word_end = word_start;
+	while (*word_end && ! ft_check_is_sep(*word_end, charset))
+	{
+		word_end++;
+	}
+	size = word_end - word_start;
+	if (size > 0)
+	{
+		word = (char *)malloc(size + 1);
+		if (word)
+			ft_strncpy(word, word_start, size);
+	}
+	*p = word_end;
+	return (word); 
+}
+
 char	**ft_split(char *str, char *charset)
 {
 	char			**arr;
-	unsigned int	len;
 	char			*p;
-	char			*p_curr;
 	unsigned int	count;
+	unsigned int	wc;
 
-	len = ft_strlen(str);
 	count = ft_get_elements_count(str, charset);
-	arr = (char **)malloc(sizeof(char *) * count);
-	p = str;
-	p_curr = 0; 
-	while (*p)
+	printf("word count %d\n", count);
+	if (count > 0)
 	{
-		if (! ft_check_is_sep(str, charset))
+		arr = (char **)malloc(sizeof(char *) * (count + 1));
+		if (arr)
 		{
-			if (p_curr)
+			arr[count] = 0;
+			wc = 0;
+			p = str;
+			while (wc < count)
 			{
-				;
+				arr[wc] = ft_find_next_word(str,charset, &p);
+				if (! arr[wc])
+					return (arr);
+				wc++;
 			}
-			else
-				p_curr = p;
-	
 		}
-		p++;
 	}
 	return (arr);
 }
